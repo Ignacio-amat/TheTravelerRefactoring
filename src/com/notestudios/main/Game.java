@@ -533,227 +533,17 @@ MouseMotionListener, MouseWheelListener, WindowListener {
 		UI.useAntiAliasing(g);
 		g.setColor(defaultBgColor);
 		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-		
-		if(gameState.equals("Menu") || gameState.equals("Normal") || gameState.equals("")) {
-			world.render(g);
-			for(int i = 0; i < objects.size(); i++) {
-				InteractibleObjects io = objects.get(i);
-				io.render(g);
-			}
-			entities.sort(Entity.enSorter);
-			for(int i = 0; i < entities.size(); i++) {
-				Entity e = entities.get(i);
-				e.render(g);
-			}
-		}
-		for (int i = 0; i < bullets.size(); i++) {
-			Bullets bullet = bullets.get(i);
-			bullet.render(g);
-		}
-		if (saveGameScreen && gameState.equals("Normal")) {
-			if (MainMenu.portuguese) {
-				if (x1 > 155 && curSaveGameTime < saveGameInfoMaxTime/2) {
-					x1-=saveGameSpeed;
-				} else if (curSaveGameTime > saveGameInfoMaxTime/2) {
-					x1+=saveGameSpeed;
-				}
-			} else if (MainMenu.english) {
-				if (x1 > 150 && curSaveGameTime < saveGameInfoMaxTime/2) {
-					x1-=saveGameSpeed;
-				} else if (curSaveGameTime > saveGameInfoMaxTime/2) {
-					x1+=saveGameSpeed;
-				}
-			}
-			if(graphics == 2) {
-				g.drawImage(defaultLargeOptionBg, (int) x1, 80, null);
-			}
-		}
-		if(cutsceneState == enterCutscene && gameState.equals("Normal")) {
-			g.setColor(defaultBgColor);
-			g.fillRect(0, 0, WIDTH, HEIGHT/5);
-			g.fillRect(0, HEIGHT-30, WIDTH, HEIGHT/5);
-		}
-		
-		if(gameState.equals("Normal") && cutsceneState == finishCutscene) {
-			if(graphics == 2) {
-				g.drawImage(defaultShortOptBg, -62, 5, null);
-				g.drawImage(defaultShortOptBg, -62, 19, null);
-			}
-			
-			g.drawImage(Entity.UIPause, -2, 4, null);
-			g.drawImage(Entity.UIShop, -2, 19, null);
-			
-		}
-		if(gameState.equals("Background")) {
-			if(!UI.menu.pause && graphics == 2) {
-				g.drawImage(GameBackground, 0, bgY, null);
-				g.drawImage(GameBackground2, 0, bgY2, null);
-			}
-		} if(gameState.equals("Start Menu")) {
-			if(graphics == 2) {
-				g.drawImage(GameBackground, 0, bgY, null);
-				g.drawImage(GameBackground2, 0, bgY2, null);
-				g.drawImage(bigBackground, 8, -20, bigBackground.getWidth()*2, bigBackground.getHeight()*2, null);
-				g.drawImage(defaultLargeOptionBg, 26, 130, 186, 16, null);
-			} else if(graphics == 1) {
-				g.setColor(new Color(30, 30, 31));
-				g.fillRect(0, 0, WIDTH, HEIGHT);
-			}
-		}
-		if (gameState.equals("Menu")) {
 
-			g.setColor(new Color(0, 0, 0, 60));
-			g.fillRect(0, 0, WIDTH, HEIGHT);
-			g.setColor(defaultBgColor);
-			g.rotate(-4.55);
-			g.fillRect(-100, -135, WIDTH+100, HEIGHT);
-			g.rotate(4.55);
-			
-			if (graphics == 2) {
-				
-				if(UI.menu.exitRequest) {
-					g.drawImage(bigBackground, -10, 4, 112+40, 50,null);
-				}
-				
-				g.drawImage(defaultLargeOptionBg, -39, 87, null);
-				g.drawImage(defaultLargeOptionBg, -39, 89, null);
-				g.drawImage(defaultLargeOptionBg, -50, 104, null);
-				if(UI.menu.currentOption == 4) {
-					if(MainMenu.english) {
-						g.drawImage(defaultLargeOptionBg, -15, 119, null);	
-					}else if(MainMenu.portuguese) {
-						g.drawImage(defaultLargeOptionBg, -10, 119, null);
-					}
-				} else {
-					g.drawImage(defaultLargeOptionBg, -39, 119, null);
-				}
-				g.drawImage(defaultLargeOptionBg, -50, 119, null);
-				g.drawImage(defaultLargeOptionBg, -50, 134, null);
-				if (UI.menu.options[UI.menu.currentOption].equals("novo_jogo")) {
-					if (positionX > 185) {
-						positionX -= 1;
-					} else if (positionX < 185) {
-						positionX += 1;
-					}
-					g.drawImage(defaultLargeOptionBg, (int) positionX, 149, null);
-				}
-				if (UI.menu.options[UI.menu.currentOption].equals("carregar_jogo")) {
-					if (MainMenu.english) {
-						if (positionX > 172) {
-							positionX -= 1;
-						} else if (positionX < 172) {
-							positionX += 1;
-						}
-					} else if (MainMenu.portuguese) {
-						if (positionX > 174) {
-							positionX -= 1;
-						} else if (positionX < 174) {
-							positionX += 1;
-						}
-					}
-					g.drawImage(defaultLargeOptionBg, (int) positionX, 149, null);
-				}
-				if (UI.menu.options[UI.menu.currentOption].equals("options")) {
-					if (positionX > 188) {
-						positionX -= 1;
-					} else if (positionX < 188) {
-						positionX += 1;
-					}
-					g.drawImage(defaultLargeOptionBg, (int) positionX, 149, null);
-				}
-				if (UI.menu.options[UI.menu.currentOption].equals("sair")) {
-					if (positionX > 195) {
-						positionX -= 1;
-					} else if (positionX < 195) {
-						positionX += 1;
-					}
-					g.drawImage(defaultLargeOptionBg, (int) positionX, 149, null);
-				}
-				if (UI.menu.options[UI.menu.currentOption].equals("Credits")) {
-					if (positionX > 195) {
-						positionX -= 1;
-					} else if (positionX < 195) {
-						positionX += 1;
-					}
-					g.drawImage(defaultLargeOptionBg, (int) positionX, 149, null);
-				}
-			}
+		switch(gameState) {
+			case "Menu" -> renderMenuState(g);
+			case "Normal" -> renderNormalState(g);
+			case "Options" -> renderOptionsState(g);
+			case "Background" -> renderBackgroundState(g);
+			case "Start Menu" -> renderStartMenuState(g);
+			case "Game Over" -> renderGameOverState(g);
+			case "Controls" -> renderControlsState(g);
 		}
 
-		if (gameState.equals("Options")) {
-			g.setColor(defaultBgColor);
-			g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-			if (graphics == 2) {
-				
-				if (UI.opt.optOptions[UI.opt.curOpt].equals("verInfo") && UI.opt.versionInfoRequest && gameState.equals("Options")) {
-					g.drawImage(defaultLargeOptionBg, 178, 130 - 45, null);
-				}
-				g.drawImage(bigBackground, -50, -25, null);
-				/* back */g.drawImage(defaultLargeOptionBg, -99, 16, null);
-					
-				if(!UI.opt.nextPage) {
-					g.drawImage(defaultLargeOptionBg, 47, 79 - 45, null);
-					g.drawImage(defaultLargeOptionBg, 47, 96 - 45, null);
-					g.drawImage(defaultLargeOptionBg, 47, 113 - 45, null);
-					g.drawImage(defaultLargeOptionBg, 47, 130 - 45, null);
-					g.drawImage(defaultLargeOptionBg, 47, 130 + 17 - 45, null);
-					g.drawImage(defaultLargeOptionBg, 47, 130 + 17 + 17 - 45, null);
-					g.drawImage(defaultLargeOptionBg, 47, 130 + 17 + 17 + 17 - 45, null);
-				} else {
-					g.drawImage(defaultLargeOptionBg, 47, 79 - 45, null);
-				}
-			}
-		}
-		
-		if (gameState.equals("Normal") && cutsceneState == finishCutscene) {
-			g.drawImage(Entity.BULLET_EN, 85, 11, null);
-			g.drawImage(Entity.COIN_EN, 124, 12, null);
-		}
-
-		if (gameState.equals("Controls")) {
-			g.setColor(defaultBgColor);
-			g.fillRect(0, 0, WIDTH, HEIGHT);
-			
-
-			if (graphics == 2) {
-				g.drawImage(bigBackground, -50, -25, null);
-				/* back */g.drawImage(defaultLargeOptionBg, -99, 16, null);
-				
-				g.drawImage(defaultLargeOptionBg, -40, 50, null);
-				g.drawImage(defaultLargeOptionBg, -40, 68, null);
-				g.drawImage(defaultLargeOptionBg, -40, 68 + 18, null);
-				g.drawImage(defaultLargeOptionBg, -40, 68 + 36, null);
-				g.drawImage(defaultLargeOptionBg, -40, 68 + 36 + 18, null);
-				
-				g.drawImage(defaultLargeOptionBg, 108, 68 + 36 + 18 - 30, null);
-				g.drawImage(defaultLargeOptionBg, 108, 68 + 36 - 30, null);
-				g.drawImage(defaultLargeOptionBg, 108, 68 + 18 - 30, null);
-				g.drawImage(defaultLargeOptionBg, 108, 68 - 30, null);
-				g.drawImage(defaultLargeOptionBg, 108, 55 - 35, null);
-				g.drawImage(defaultLargeOptionBg, 108, 20 + 90, null);
-				g.drawImage(defaultLargeOptionBg, 108, 20 + 90 + 18, null);
-				
-			}
-
-		}
-		
-		if(gameState.equals("Game Over")) {
-			g.setColor(new Color(0, 0, 0, 120));
-			g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-			
-			g.setColor(defaultBgColor);
-			g.rotate(-4.50);
-			g.fillRect(-100, -135, WIDTH+100, HEIGHT);
-			g.rotate(4.50);//AQUI2
-			if(graphics == 2) {
-				g.drawImage(bigBackground, -6, 5, 132, 48, null);
-				g.drawImage(defaultLargeOptionBg, -11, 85, 160, 16, null);
-				g.drawImage(defaultLargeOptionBg, -16, 101, null);
-				g.drawImage(defaultShortOptBg, 10, 149, null);
-			}
-			
-		}
-		
 		g.dispose();
 		g = (Graphics2D) bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
@@ -1040,6 +830,245 @@ MouseMotionListener, MouseWheelListener, WindowListener {
 		ui.unlockAchivementAnim(g, achivIcon, "???", "Loading trophy description...\nThis is an achivement!", false);
 		*/
 		bs.show();
+	}
+
+	public void renderMenuState(Graphics2D g) {
+		g.setColor(new Color(0, 0, 0, 60));
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setColor(defaultBgColor);
+		g.rotate(-4.55);
+		g.fillRect(-100, -135, WIDTH + 100, HEIGHT);
+		g.rotate(4.55);
+
+		if (graphics == 2) {
+			if (UI.menu.exitRequest) {
+				g.drawImage(bigBackground, -10, 4, 112 + 40, 50, null);
+			}
+
+			g.drawImage(defaultLargeOptionBg, -39, 87, null);
+			g.drawImage(defaultLargeOptionBg, -39, 89, null);
+			g.drawImage(defaultLargeOptionBg, -50, 104, null);
+
+			g.drawImage(defaultLargeOptionBg, -39, 119, null);
+			g.drawImage(defaultLargeOptionBg, -50, 119, null);
+			g.drawImage(defaultLargeOptionBg, -50, 134, null);
+
+			switch (UI.menu.currentOption) {
+				case 0: // New Game
+					if (positionX > 185) {
+						positionX -= 1;
+					} else if (positionX < 185) {
+						positionX += 1;
+					}
+					g.drawImage(defaultLargeOptionBg, (int) positionX, 149, null);
+					break;
+
+				case 1: // Load Game
+					if (MainMenu.english) {
+						if (positionX > 172) {
+							positionX -= 1;
+						} else if (positionX < 172) {
+							positionX += 1;
+						}
+					} else if (MainMenu.portuguese) {
+						if (positionX > 174) {
+							positionX -= 1;
+						} else if (positionX < 174) {
+							positionX += 1;
+						}
+					}
+					g.drawImage(defaultLargeOptionBg, (int) positionX, 149, null);
+					break;
+
+				case 2: // Options
+					if (positionX > 188) {
+						positionX -= 1;
+					} else if (positionX < 188) {
+						positionX += 1;
+					}
+					g.drawImage(defaultLargeOptionBg, (int) positionX, 149, null);
+					break;
+
+				case 3: // Exit
+					if (positionX > 195) {
+						positionX -= 1;
+					} else if (positionX < 195) {
+						positionX += 1;
+					}
+					g.drawImage(defaultLargeOptionBg, (int) positionX, 149, null);
+					break;
+
+				case 4: // Credits
+					if (positionX > 195) {
+						positionX -= 1;
+					} else if (positionX < 195) {
+						positionX += 1;
+					}
+					g.drawImage(defaultLargeOptionBg, (int) positionX, 149, null);
+					break;
+
+				default:
+					break;
+			}
+		}
+	}
+
+	public void renderNormalState(Graphics2D g) {
+		if (gameState.equals("Normal") || gameState.equals("Menu") || gameState.equals("")) {
+			world.render(g);
+
+			// Rendering InteractibleObjects
+			for (int i = 0; i < objects.size(); i++) {
+				InteractibleObjects io = objects.get(i);
+				io.render(g);
+			}
+
+			// Sorting and rendering Entities
+			entities.sort(Entity.enSorter);
+			for (int i = 0; i < entities.size(); i++) {
+				Entity e = entities.get(i);
+				e.render(g);
+			}
+		}
+
+		// Rendering Bullets
+		for (int i = 0; i < bullets.size(); i++) {
+			Bullets bullet = bullets.get(i);
+			bullet.render(g);
+		}
+
+		// Rendering Save Game Screen
+		if (saveGameScreen && gameState.equals("Normal")) {
+			if (MainMenu.portuguese) {
+				if (x1 > 155 && curSaveGameTime < saveGameInfoMaxTime / 2) {
+					x1 -= saveGameSpeed;
+				} else if (curSaveGameTime > saveGameInfoMaxTime / 2) {
+					x1 += saveGameSpeed;
+				}
+			} else if (MainMenu.english) {
+				if (x1 > 150 && curSaveGameTime < saveGameInfoMaxTime / 2) {
+					x1 -= saveGameSpeed;
+				} else if (curSaveGameTime > saveGameInfoMaxTime / 2) {
+					x1 += saveGameSpeed;
+				}
+			}
+			if (graphics == 2) {
+				g.drawImage(defaultLargeOptionBg, (int) x1, 80, null);
+			}
+		}
+
+		// Enter Cutscene
+		if (cutsceneState == enterCutscene && gameState.equals("Normal")) {
+			g.setColor(defaultBgColor);
+			g.fillRect(0, 0, WIDTH, HEIGHT / 5);
+			g.fillRect(0, HEIGHT - 30, WIDTH, HEIGHT / 5);
+		}
+
+		// Finish Cutscene
+		if (gameState.equals("Normal") && cutsceneState == finishCutscene) {
+			if (graphics == 2) {
+				g.drawImage(defaultShortOptBg, -62, 5, null);
+				g.drawImage(defaultShortOptBg, -62, 19, null);
+			}
+
+			g.drawImage(Entity.UIPause, -2, 4, null);
+			g.drawImage(Entity.UIShop, -2, 19, null);
+		}
+
+		// Background State
+		if (gameState.equals("Background")) {
+			if (!UI.menu.pause && graphics == 2) {
+				g.drawImage(GameBackground, 0, bgY, null);
+				g.drawImage(GameBackground2, 0, bgY2, null);
+			}
+		}
+	}
+
+	public void renderOptionsState(Graphics2D g) {
+		g.setColor(defaultBgColor);
+		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+
+		if(graphics == 2) {
+			if (UI.opt.optOptions[UI.opt.curOpt].equals("verInfo") && UI.opt.versionInfoRequest && gameState.equals("Options")) {
+				g.drawImage(defaultLargeOptionBg, 178, 130 - 45, null);
+			}
+			g.drawImage(bigBackground, -50, -25, null);
+			/* back */
+			g.drawImage(defaultLargeOptionBg, -99, 16, null);
+
+			if (!UI.opt.nextPage) {
+				g.drawImage(defaultLargeOptionBg, 47, 79 - 45, null);
+				g.drawImage(defaultLargeOptionBg, 47, 96 - 45, null);
+				g.drawImage(defaultLargeOptionBg, 47, 113 - 45, null);
+				g.drawImage(defaultLargeOptionBg, 47, 130 - 45, null);
+				g.drawImage(defaultLargeOptionBg, 47, 130 + 17 - 45, null);
+				g.drawImage(defaultLargeOptionBg, 47, 130 + 17 + 17 - 45, null);
+				g.drawImage(defaultLargeOptionBg, 47, 130 + 17 + 17 + 17 - 45, null);
+			} else {
+				g.drawImage(defaultLargeOptionBg, 47, 79 - 45, null);
+			}
+		}
+	}
+
+	public void renderBackgroundState(Graphics2D g) {
+		if (!UI.menu.pause && graphics == 2) {
+			g.drawImage(GameBackground, 0, bgY, null);
+			g.drawImage(GameBackground2, 0, bgY2, null);
+		}
+	}
+
+	public void renderStartMenuState(Graphics2D g) {
+		if (graphics == 2) {
+			g.drawImage(GameBackground, 0, bgY, null);
+			g.drawImage(GameBackground, 0, bgY2, null);
+			g.drawImage(bigBackground, 8, -20, bigBackground.getWidth() * 2, bigBackground.getHeight() * 2, null);
+			g.drawImage(defaultLargeOptionBg, 26, 130, 186, 16, null);
+		} else if (graphics == 1) {
+			g.setColor(new Color(30, 30, 31));
+			g.fillRect(0, 0, WIDTH, HEIGHT);
+		}
+	}
+
+	public void renderGameOverState(Graphics2D g) {
+		g.setColor(new Color(0, 0, 0, 120));
+		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+
+		g.setColor(defaultBgColor);
+		g.rotate(-4.50);
+		g.fillRect(-100, -135, WIDTH + 100, HEIGHT);
+		g.rotate(4.50);
+
+		if (graphics == 2) {
+			g.drawImage(bigBackground, -6, 5, 132, 48, null);
+			g.drawImage(defaultLargeOptionBg, -11, 85, 160, 16, null);
+			g.drawImage(defaultLargeOptionBg, -16, 101, null);
+			g.drawImage(defaultShortOptBg, 10, 149, null);
+		}
+	}
+
+	public void renderControlsState(Graphics2D g) {
+		g.setColor(defaultBgColor);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+
+		if (graphics == 2) {
+			g.drawImage(bigBackground, -50, -25, null);
+			/* back */
+			g.drawImage(defaultLargeOptionBg, -99, 16, null);
+
+			g.drawImage(defaultLargeOptionBg, -40, 50, null);
+			g.drawImage(defaultLargeOptionBg, -40, 68, null);
+			g.drawImage(defaultLargeOptionBg, -40, 68 + 18, null);
+			g.drawImage(defaultLargeOptionBg, -40, 68 + 36, null);
+			g.drawImage(defaultLargeOptionBg, -40, 68 + 36 + 18, null);
+
+			g.drawImage(defaultLargeOptionBg, 108, 68 + 36 + 18 - 30, null);
+			g.drawImage(defaultLargeOptionBg, 108, 68 + 36 - 30, null);
+			g.drawImage(defaultLargeOptionBg, 108, 68 + 18 - 30, null);
+			g.drawImage(defaultLargeOptionBg, 108, 68 - 30, null);
+			g.drawImage(defaultLargeOptionBg, 108, 55 - 35, null);
+			g.drawImage(defaultLargeOptionBg, 108, 20 + 90, null);
+			g.drawImage(defaultLargeOptionBg, 108, 20 + 90 + 18, null);
+		}
 	}
 	
 	/*private void renderFakeMouseCursor(Graphics g) {
